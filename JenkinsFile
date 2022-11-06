@@ -8,11 +8,22 @@ pipeline {
                     final String url = "https://run.mocky.io/v3/4590b10a-9d22-469d-85bc-7ffebad2e10a"
 
                     def response = sh(script: "curl -s $url", returnStdout: true).trim()
-                    def parsedjson = new groovy.json.JsonSlurper().parseText(response)
-                    echo parsedjson
-                    echo parsedjson.Hello
+                    
+                    echo response
                 }
             }
         }
+    stage ("Prompt for input") {
+      steps {
+        script {
+          Text = input message: 'Please enter the Text',
+                             parameters: [text(defaultValue: '',
+                                          description: '',
+                                          name: 'Text')]
+
+        }
+        echo "Username: ${Text}"
+      }
+    }
     }
 }
