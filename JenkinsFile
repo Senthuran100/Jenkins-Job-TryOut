@@ -1,0 +1,17 @@
+pipeline {
+    agent any
+
+    stages {
+        stage("Using curl Command") {
+            steps {
+                script {
+                    final String url = "https://run.mocky.io/v3/4590b10a-9d22-469d-85bc-7ffebad2e10a"
+
+                    final String response = sh(script: "curl -s $url", returnStdout: true).trim()
+
+                    echo response
+                }
+            }
+        }
+    }
+}
